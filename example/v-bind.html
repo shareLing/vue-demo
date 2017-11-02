@@ -15,14 +15,25 @@
      <p><a :href="webUrl" target="_blank">技术胖</a></p>
     <hr>
        <div :class="className"> 1、绑定Class</div>
-       <div :class="{classA:isOk}">2、绑定class中的判断</div>       
+       <div :class="{classA:isOk}">2、绑定class中的判断</div>
+       <div :class="[classA,classB]">3、绑定class中的数组</div>  
+       <div :class="isOk?classA:classB">4、绑定class中的三元表达式判断</div>  
+       <hr>
+        <div>
+        <input type="checkbox" id="isOk" v-model="isOk">  
+        <label for="isOk">isOk={{isOk}}</label>  
+        </div>     
+        <hr>
+        <!--CSS 属性名可以用驼峰式 (camelCase) 或短横线分隔 (kebab-case，记得用单引号括起来) 来命名：-->
+        <div :style="{color: activeColor,'font-size': fontSize}">5、绑定style值</div>
+        <div :style="styleObject">6、对象绑定style值</div>
     </div>
     <style>
     .classA{
         color: red;
     }
     .classB{
-        color: green;
+        font-size: 150%;
     }
     </style>
 
@@ -33,7 +44,15 @@
            imgSrc:"http://jspang.com/wp-content/uploads/2017/02/vue01-2.jpg",
            webUrl:"http://jspang.com",
            className:'classA',
-           isOk:true
+           isOk:false,
+           classA:'classA',
+           classB:'classB',
+           activeColor:'red',
+           fontSize:'20px',
+            styleObject:{
+            fontSize:'25px',
+            color:'green'
+             }
         }
     })
     </script>
