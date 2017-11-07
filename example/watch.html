@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>watch</title>
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+</head>
+<body>
+    <h1>watch 监控数据</h1>
+    <hr>
+    <div id="app">
+        <p>今日的温度：{{wender}}度</p>
+        <p>穿衣建议：{{chuanyi}}</p>
+        <p><button @click="add">升高温度</button >   <button @click="reduce">降低温度</button></p>
+    </div>
+    <script type="text/javascript">
+    var chanyiarry=['T恤短袖','夹克长裙','羽绒服'];
+
+    var app=new Vue({
+        el:"#app",
+        data:{
+            wender:14,
+            chuanyi:"夹克长裙"
+        },
+        methods:{
+            add:function(){
+                this.wender+=5;
+            },
+            reduce:function(){
+                this.wender-=5;
+            }
+        },
+        watch:{
+            wender:function(newVal,oldVal){
+                if(newVal>=26){
+                    this.chuanyi=chanyiarry[0];
+                }else if(newVal<26 && newVal>0){
+                    this.chuanyi=chanyiarry[1];
+                }else{
+                    this.chuanyi=chanyiarry[2];
+                }
+
+            }
+        }
+    })
+
+    // 写在构造器外面的watch方法
+    // app.$watch('wender',function(newVal,oldVal){
+    //     if(newVal>=26){
+    //         this.chuanyi=chanyiarry[0];
+    //     }else if(newVal<26 && newVal>0){
+    //         this.chuanyi=chanyiarry[1];
+    //    }else{
+    //         this.chuanyi=chanyiarry[2];
+    //     }
+    // })
+    </script>
+</body>
+</html>

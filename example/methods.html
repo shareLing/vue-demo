@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+    <title>methods Option</title>
+</head>
+<body>
+    <h1>methods 方法选项</h1>
+    <hr>
+    <div id="app">
+        {{ a }}
+        <!-- 传递的$event参数都是关于点击鼠标的一些事件和属性。 -->
+        <p><button @click="add(2,$event)">add</button></p>
+        <!-- 声明一个组件 -->
+        <!-- 组件调用构造器里的方法用.native修饰器来调用构造器里的add方法 -->
+        <p><btn @click.native="add(2)"></btn></p>
+    </div>
+    <button onclick="app.add(3)">外部add</button>
+    <script type="text/javascript">
+       var btnComponent={
+           template:`<button>组件App</button>`
+       }
+        var app=new Vue({
+            el:'#app',
+            data:{
+                a:1
+            },
+            methods:{
+                add:function(num,event){
+                    if(num!=''){
+                        this.a+=num;
+                    }else{
+                        this.a++;
+                    }
+                   console.log(event)
+                }
+            },
+            components:{
+                "btn":btnComponent
+            }
+        })
+    </script>
+</body>
+</html>

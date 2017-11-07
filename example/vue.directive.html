@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.directiv 自定义指令</title>
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+</head>
+<body>
+    <h1>Vue.directiv 自定义指令</h1>
+    <hr>
+    <div id="app">
+        <div v-ling="color">{{number}}</div>
+        <p><button v-on:click="add">增加</button></p>
+        <p><button onclick="unbind()">解绑</button></p>
+    </div>
+    <script type="text/javascript">
+    function unbind(){
+        app.$destroy();
+
+    }
+//el: 指令所绑定的元素，可以用来直接操作DOM。
+//binding:  一个对象，包含指令的很多信息。
+//vnode: Vue编译生成的虚拟节点。
+//第一种方式
+ /*Vue.directive('ling',function(el,binding){
+            console.log(el);
+            //console.log(binding);
+            //console.log(binding.name);
+            //console.log(binding.value);
+            //console.log(binding.expression);
+            el.style="color:"+binding.value;
+    });*/
+//第二种方式,传递一个对象，是自定义指令的生命周期
+Vue.directive("ling",{
+    bind:function(el,binding){//被绑定
+     console.log('1 - bind');
+     el.style="color:"+binding.value;
+   },
+   inserted:function(){//绑定到节点
+      console.log('2 - inserted');
+   },
+   update:function(){//组件更新
+      console.log('3 - update');
+  },
+  componentUpdated:function(){//组件更新完成
+      console.log('4 - componentUpdated');
+  },
+  unbind:function(){//解绑
+      console.log('1 - bind');
+   }
+});
+    var app=new Vue({
+        el:"#app",
+        data:{
+            number:1,
+            color:'red'
+        },
+        methods:{
+            add:function(){
+                this.number++;
+            }
+        }
+    })
+    </script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>example Methods  Demo</title>
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+</head>
+<body>
+    <h1>实例方法</h1>
+    <hr>
+    <div id="app">
+        
+    </div>
+
+    <p><button onclick="destroy()">卸载</button></p>
+    <p><button onclick="reload()">刷新</button></p>
+    <p><button onclick="tick()">修改</button></p>
+    <script type="text/javascript">
+    var ling=Vue.extend({
+        template:`<p>{{message}}</p>`,
+        data:function(){
+            return{
+                message:'Hello,I am Ling!'
+            }
+        },
+        //生命周期
+        mounted:function(){
+            console.log('mounted 被挂载之后（就是创建之后）')
+        },
+        destroyed:function(){
+            console.log('destroy 被销毁之后')
+        },
+        updated:function(){
+            console.log('updated 更新之后')
+        }
+
+    })
+  //$mount方法是用来挂载我们的扩展的
+    var vm=new ling().$mount("#app");
+
+    function destroy(){
+        //用$destroy()进行卸载。     
+        vm.$destroy();
+    }
+
+    function reload(){
+        //用$forceUpdate()进行更新数据。 
+        vm.$forceUpdate();
+    }
+
+    //$nextTick() 数据修改方法当Vue构造器里的data值被修改完成后会调用这个方法，也相当于一个钩子函数吧，和构造器里的updated生命周期很像。
+    function tick(){
+    vm.message="update message info ";
+    vm.$nextTick(function(){
+        console.log('message更新完后我被调用了');
+    })
+    }
+    </script>
+</body>
+</html>

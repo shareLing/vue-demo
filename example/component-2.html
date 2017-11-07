@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>component-2 组件属性设置</title>
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+</head>
+<body>
+    <h1>component 组件实例（属性设置）</h1>
+    <hr>
+    <div id="app"> 
+     <panda v-bind:here="massage"></panda>
+     <!-- <panda from-here="China"></panda> -->
+    </div>
+    <script type="text/javascript">
+    
+    var app=new Vue({
+        el:"#app",
+        data:{
+            massage:"China"
+        },
+        components:{
+            "panda":{
+               template:`<div style="color:green">Panda from {{here}}</div>`,
+              // template:`<div style="color:green">Panda from {{fromHere}}</div>`,
+               //用选项 挂载属性
+               props:['here']
+               //vue不支持杠'-'这种写法，遇到这种情况必须用小驼峰的写法把杠去掉，如下面的例子
+               //props:['frimHere']
+               
+            }
+        }
+        
+    })
+    </script>
+</body>
+</html>

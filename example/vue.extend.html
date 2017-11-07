@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.extend 扩展实例构造器</title>
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+</head>
+<body>
+    <h1>Vue.extend 扩展实例构造器</h1>
+    <hr>
+    <author></author>
+    <div id="author"></div>
+
+    <script type="text/javascript">
+    //做一个构造器的延伸
+    var authorExtend =Vue.extend({
+        //构造一个模板
+        template:"<p><a :href='authorUrl'>{{authorName}}</a></p>",
+        data:function(){
+            return{
+                authorName:'JSPang',
+                authorUrl:'www.baidu.com'
+            }
+        }
+    });
+    //加载扩展构造器
+    //mount， 意思为挂载。可以理解为将vue实例（逻辑应用），挂靠在某个dom元素（载体）上的一个过程
+    new authorExtend().$mount("author");
+    new authorExtend().$mount("#author");
+    </script>
+</body>
+</html>

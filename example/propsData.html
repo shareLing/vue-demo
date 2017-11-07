@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>propsData Option 全局扩展的数据传递</title>
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+</head>
+<body>
+    <h1>propsData Option全局扩展的数据传递</h1>
+    <hr>
+    <header></header>
+    
+    <script type="text/javascript">
+    //做一个构造器的延伸
+    var header_a=Vue.extend({
+        template:`<p>{{message}}--{{a}}</p>`,
+        data:function(){
+            return{
+                message:"Hello, I am header"
+            }
+        },
+        props:["a"]
+    });
+    //加载扩展构造器
+    //mount， 意思为挂载。可以理解为将vue实例（逻辑应用），挂靠在某个dom元素（载体）上的一个过程
+    new header_a({propsData:{a:12}}).$mount("header");
+    </script>
+</body>
+</html>

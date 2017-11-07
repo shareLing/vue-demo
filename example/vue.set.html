@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.set全局操作的实例展示</title>
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+</head>
+<body>
+    <h1>Vue.set全局操作的实例展示</h1>
+    <hr>
+    <div id="app">
+        {{count}}
+        <ul>
+            <li v-for="item in arr">{{item}}</li>
+        </ul>
+        <p><button onclick="add()">增加</button></p>
+        
+    </div>
+    <script type="text/javascript">
+    var outData={
+        count:1,
+        //goods:'car'
+        arr:['aaa','bbb','ccc']
+    }
+    function add(){
+        //Vue.set(outData,'count',2);
+        //app.count++;
+        outData.count++;
+        //当不要 outData.count++;，下面一句将不起任何作用，当arr的下标改变时vue是不能识别它的
+        app.arr[1]='ddd';
+        //Vue.set(app.arr,1,'ddd');
+    }
+    var app=new Vue({
+        el:"#app",
+        data:outData
+    })
+    </script>
+</body>
+</html>
