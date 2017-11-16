@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+       <style>
+       .comleted{
+           text-decoration: line-through;
+       }
+       </style>
+    <body>
+    <div id="app">
+        <task :list="tasks"></task>
+       
+    </div>
+
+    <template id="task-temlate">
+        <div>
+            <h1>My taks 
+              <span v-show="remaining>0">还剩({{remaining}})</span>
+            </h1>
+            <ul>
+                <li
+                 @click="task.comleted = !task.comleted"
+                 :class="{'comleted':task.comleted}"
+                  v-for="task in list"
+                        >
+                {{ task.body }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <strong @click="deleteTask(task)">X</strong>
+                </li>
+            </ul>
+        </div>
+    </template>
+    </body>
+    <script src="../assets/js/vue.js"></script>
+    <script>
+    Vue.component('task',{
+        template:`#task-temlate`,
+        props:['list'],
+        computed:{
+            remaining:function(){
+                return this.list.filter(function(task){
+                    return ! task.comleted
+                }).length;
+            }
+        },
+        methods:{
+            deleteTask:function(task){
+                //$remove(task);在2.0版本中不起作用
+                this.list.splice(task,1);
+            }
+        }
+    });
+    new Vue({
+        el:"#app",
+        data:{
+            tasks:[
+                {body:'vuejs1',comleted:false},
+                {body:'vuejs2',comleted:false},
+                {body:'jquery',comleted:false}
+            ]
+        }
+    })
+    </script>
+</html>

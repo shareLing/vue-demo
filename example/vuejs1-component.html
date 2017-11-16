@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <style>
+            button{
+                padding:2px 15px;
+                outline: none;
+                border: none;
+                border-radius: 20%;
+            }
+        </style>
+    </head>
+    <body>
+    <div id="app"> 
+       <counter heading="Like" color="green"></counter> 
+       <counter heading="Dislike" color="pink"></counter> 
+       
+    </div>
+    <template id="template-counter">
+        <!-- 在创建<template>模版时，需要把所有的内容归在一个节点下，如<div>(每个组件有且仅有一个根节点。不再支持片段实例) -->
+        <div>
+            <h1>{{heading}}</h1>
+            <!-- 由于Vue2.0不支持属性内部计算插值，故style="backgroud:{{color}}"无效，应当用v-bind:style="'background:'+color" -->
+            <button @click="count += 1" v-bind:style="'background:'+color">{{count}}</button>
+        </div>
+    </template>
+    </body>
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+    <script>
+    Vue.component('counter',{
+        template:`#template-counter`,
+        // 组件实例的作用域是孤立的。这意味着不能 (也不应该) 在子组件的模板内直接引用父组件的数据。父组件的数据需要通过 prop 才能下发到子组件中。
+        props:['heading','color'],
+        data:function(){
+            return{
+                count:0
+            }
+        }
+    })
+    new Vue({
+        el:'#app'
+    })
+    </script>
+</html>
